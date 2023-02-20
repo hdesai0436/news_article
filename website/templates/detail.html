@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %} detail {% endblock %}
+
+{% block content %}
+
+<main id="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 post-content" data-aos="fade-up">
+                <div class="single-post">
+                 
+                    <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>{{post.new_date}}</span></div>
+                    <h1 class="mb-5">{{post.title}}</h1>
+                    <div class="post-meta"><span class="date">{{post.author}}</span></div>
+                    <p>{{post.content}}</p>
+                    <br/>
+
+                    <br/>
+                    <br/>
+                    <h3>Article Summary</h3>
+                    <p>{{article_summary}}</p>
+                    
+                    
+                </div><!-- End Single Post Content -->
+                 
+            </div>
+              <div class="col-md-4" data-aos="fade-up">
+                <h3>Top Keywords in article</h3>
+                {% for i,k in topic_keywords %}
+                <p style="float: left; margin: 5px; padding: 5px;"><span class="border border-primary rounded" style="padding: 8px; background-color: blue; color: aliceblue; font-size: 20px;">{{i}}</span></p>
+                {% endfor %}
+              </div>
+        </div>
+    </div>
+</main>
+
+<section class="category-section">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-header d-flex justify-content-between align-items-center mb-5">
+        <h2>Culture</h2>
+        <div><a href="category.html" class="more">See All Culture</a></div>
+      </div>
+
+          <div class="row">
+            
+              {% for i in recommend %}
+              <div class="col-lg-4">
+                <div class="post-entry-1 border-bottom">
+                  <a href="single-post.html"><img src="assets/img/post-landscape-1.jpg" alt="" class="img-fluid"></a>
+                  <div class="post-meta"><span class="date"></span> <span class="mx-1">&bullet;</span> <span>{{i.new_date}}</span></div>
+                  <h2 class="mb-2"><a href="{{ url_for('views.article_detail', news_id=i.id) }}"">{{i.title}}</a></h2>
+                  <span class="author mb-3 d-block">{{i.author}}</span>
+                  
+                </div>
+              </div>
+            {% endfor %}
+            
+          </div>
+        
+    </div>
+  </section>
+
+{% endblock %}
