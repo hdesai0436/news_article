@@ -15,10 +15,10 @@ def home():
         # a = db.session.query(News).filter(News.id.in_([9,7,43,36,20,29]))
         # for i in a:
         #     print(i.title)
-        sport = db.session.query(News, Category).join(Category).filter_by(category_title='sports')
-        politics = db.session.query(News, Category).join(Category).filter_by(category_title='politics')
-        business = db.session.query(News, Category).join(Category).filter_by(category_title='business')
-
+        sport = db.session.query(News, Category).join(Category).filter_by(category_title='sports').limit(6).all()
+        politics = db.session.query(News, Category).join(Category).filter_by(category_title='politics').limit(6).all()
+        business = db.session.query(News, Category).join(Category).filter_by(category_title='business').limit(6).all()
+      
         return render_template('home.html',sport=sport,politics=politics,business=business)
     except Exception as e:
         raise(e)
@@ -30,7 +30,7 @@ def article_detail(news_id):
         rec_news = recommend.avg_w2v_with_category(news_id,6,0.1,0.5)
         
         recommend = db.session.query(News).filter(News.id.in_(rec_news.tolist()))
-    
+        
         post = News.query.get_or_404(news_id)
         text_preprocess_text = Text_Preprocess()
         keywords = GetKeywords()
@@ -47,4 +47,11 @@ def article_detail(news_id):
     except Exception as e:
         raise(e)
 
+@views.route('/category/<string:category_name>')
+def category(category_name):
+    try:
+        article = db.session.query(News, Category).join(Category).filter_by(category_title=category_name).all()
+        return render_template('category.html',article=article)
+    except Exception as e:
+        raise(e)
 

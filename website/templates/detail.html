@@ -48,8 +48,9 @@
               <div class="col-lg-4">
                 <div class="post-entry-1 border-bottom">
                   <a href="single-post.html"><img src="assets/img/post-landscape-1.jpg" alt="" class="img-fluid"></a>
-                  <div class="post-meta"><span class="date"></span> <span class="mx-1">&bullet;</span> <span>{{i.new_date}}</span></div>
-                  <h2 class="mb-2"><a href="{{ url_for('views.article_detail', news_id=i.id) }}"">{{i.title}}</a></h2>
+                  
+                  <div class="post-meta"><span class="date">{{i.category.category_title}}</span> <span class="mx-1">&bullet;</span> <span>{{i.new_date}}</span></div>
+                  <h2 class="mb-2"><a href="{{ url_for('views.article_detail', news_id=i.id) }}">{{i.title}}</a></h2>
                   <span class="author mb-3 d-block">{{i.author}}</span>
                   
                 </div>

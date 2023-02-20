@@ -1,41 +1,41 @@
 
 
-$(function(){
+// $(function(){
     
-    // Configure/customize these variables.
-    var showChar = 100;  // How many characters are shown by default
-    var ellipsestext = "...";
-    var moretext = "Show more >";
-    var lesstext = "Show less";
-    var readsummary = 'read summary'
-    alert('ds')
-    $('.more').each(function() {
+//     // Configure/customize these variables.
+//     var showChar = 100;  // How many characters are shown by default
+//     var ellipsestext = "...";
+//     var moretext = "Show more >";
+//     var lesstext = "Show less";
+//     var readsummary = 'read summary'
+    
+//     $('.more').each(function() {
         
-        var content = $(this).html();
-        if(content.length > showChar) {
+//         var content = $(this).html();
+//         if(content.length > showChar) {
  
-            var c = content.substr(0, showChar);
-            var h = content.substr(showChar, content.length - showChar);
+//             var c = content.substr(0, showChar);
+//             var h = content.substr(showChar, content.length - showChar);
  
-            var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a>&nbsp;&nbsp;</span>';
+//             var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a>&nbsp;&nbsp;</span>';
  
-            $(this).html(html);
+//             $(this).html(html);
           
-        }
+//         }
         
-    });
+//     });
  
-    $(".morelink").click(function(){
-        if($(this).hasClass("less")) {
-            $(this).removeClass("less");
-            $(this).html(lesstext);
-        } else {
-            $(this).addClass("less");
-            $(this).html(moretext);
-        }
-        $(this).parent().prev().toggle();
-        $(this).prev().toggle();
-        return false;
-    });
+//     $(".morelink").click(function(){
+//         if($(this).hasClass("less")) {
+//             $(this).removeClass("less");
+//             $(this).html(lesstext);
+//         } else {
+//             $(this).addClass("less");
+//             $(this).html(moretext);
+//         }
+//         $(this).parent().prev().toggle();
+//         $(this).prev().toggle();
+//         return false;
+//     });
    
-});
+// });
