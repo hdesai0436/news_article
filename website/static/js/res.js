@@ -1,21 +1,40 @@
-$(document).ready(function() {
-    var dialogShown = $.cookie('dialogShown');
+$(document).ready(function(){
+    $(".chat_on").click(function(){
+        $(".Layout").toggle();
+        $(".chat_on").hide(300);
+    });
+    
+       $(".chat_close_icon").click(function(){
+        $(".Layout").hide();
+           $(".chat_on").show(300);
+    });
+    
+});
 
-    // On newer versions of js-cookie, API use:
-    // var dialogShown = Cookies.get('dialogShown');
-
-    if (!dialogShown) {
-        $(window).load(function(){
-            $( "#MyModel" ).dialog();
-            $.cookie('dialogShown', 1);
-            // On newer versions of js-cookie, API use:
-            // Cookies.set('dialogShown', 1);
-
+$(document).ready(function(){
+    $("#send_button").click(function(e){
+        e.preventDefault();
+        var input = $('#input').val();
+        $.ajax({
+            url : "/chat",   //change url
+            type: "post",
+            mode: 'no-cors',
+            crossdomain: true,
+            withCredentials: false,
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*"
+            },
+            data: JSON.stringify({data:input}),
+            success: function(response){
+                $('.customer').append(`<p>${input}</p>`)
+                window.location.href= ('/category/sports')
+            }
         });
-    }
-    else {
-        $("#MyModel").hide();
-    }
+
+    });
+
 });
 
 // $(function(){

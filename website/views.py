@@ -5,8 +5,7 @@ from news_recommendation.recommend import News_recommend
 from text_preprocess.text_pre import Text_Preprocess
 from extract_keywords.keywords import GetKeywords
 from text_summary.summary import Text_Summary
-
-
+import texttospeech
 views = Blueprint("views",__name__)
 
 @views.route('/')
@@ -32,6 +31,7 @@ def article_detail(news_id):
         recommend = db.session.query(News).filter(News.id.in_(rec_news.tolist()))
         
         post = News.query.get_or_404(news_id)
+        speech_text = texttospeech.text2Speech(post.title)
         text_preprocess_text = Text_Preprocess()
         keywords = GetKeywords()
         summary = Text_Summary()
@@ -41,7 +41,7 @@ def article_detail(news_id):
 
         article_summary = summary.text_summary(post.content)
 
-        return render_template('detail.html',post=post,recommend=recommend,topic_keywords=topic_keywords,article_summary=article_summary)
+        return render_template('detail.html',post=post,recommend=recommend,topic_keywords=topic_keywords,article_summary=article_summary,speech_text=speech_text.decode("utf-8"))
 
 
     except Exception as e:
@@ -50,6 +50,7 @@ def article_detail(news_id):
 @views.route('/category/<string:category_name>')
 def category(category_name):
     try:
+        
         page = request.args.get('page',1,type=int)
         article = db.session.query(News, Category).join(Category).filter_by(category_title=category_name).paginate(page=page, per_page=5)
         return render_template('category.html',article=article,category=category_name)
@@ -64,3 +65,14 @@ def search():
         result = News.query.filter(News.title.like(search)).all()
         return render_template('search.html',result=result )
 
+@views.route('/chat', methods=['POST'])
+def chat():
+    data = request.json['data']
+    if data == 'category':
+        
+        return {"data" : data}
+    
+
+
+    
+    
