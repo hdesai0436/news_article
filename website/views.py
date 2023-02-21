@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template
+from flask import Blueprint,render_template,request
 from . import db
 from .models import News,Category
 from news_recommendation.recommend import News_recommend
@@ -50,8 +50,17 @@ def article_detail(news_id):
 @views.route('/category/<string:category_name>')
 def category(category_name):
     try:
-        article = db.session.query(News, Category).join(Category).filter_by(category_title=category_name).all()
-        return render_template('category.html',article=article)
+        page = request.args.get('page',1,type=int)
+        article = db.session.query(News, Category).join(Category).filter_by(category_title=category_name).paginate(page=page, per_page=5)
+        return render_template('category.html',article=article,category=category_name)
     except Exception as e:
         raise(e)
+    
+@views.route('/search', methods=['GET','POST'])
+def search():
+    if request.method == 'POST':
+        form = request.form['search']
+        search = "%{}%".format(form)
+        result = News.query.filter(News.title.like(search)).all()
+        return render_template('search.html',result=result )
 

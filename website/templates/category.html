@@ -3,13 +3,17 @@
 
 {% block content %}
 <main id="main">
+        <!-- Modal -->
+        
+        <!-- Modal End -->
+
     <section>
       <div class="container">
         <div class="row">
 
           <div class="col-md-9" data-aos="fade-up">
             <h3 class="category-title">Category: Business</h3>
-            {% for news, category in article %}
+            {% for news, category in article.items %}
             <div class="d-md-flex post-entry-2 half">
               <div>
                 <div class="post-meta"><span class="date">{{category.category_title}}</span> <span class="mx-1">&bullet;</span> <span>{{news.new_date}}</span></div>
@@ -26,8 +30,23 @@
             {% endfor %}
 
           </div>
-
-
+          <div class="text-start py-4">
+            <div class="custom-pagination">
+              <a href="#" class="prev">Prevous</a>
+              {% for page_num in article.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                {% if page_num %}
+                    {% if article.page == page_num %}
+                    <a href="{{ url_for('views.category',page=page_num,category_name=category) }}" class="active">{{page_num}}</a>
+                    {% else %}
+                    <a href="{{ url_for('views.category',page=page_num,category_name=category) }}">{{page_num}}</a>
+                    {% endif %}
+                {% else %}
+                    ......
+                {% endif %}
+              {% endfor %}
+              <a href="#" class="next">Next</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
