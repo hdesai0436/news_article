@@ -37,24 +37,26 @@ def signup():
             email = request.form.get('email')
             password =request.form.get('password')
             password2 = request.form.get('password2')
+            op1 = request.form.getlist('name')
+            print(op1)
 
-            email_exists = User.query.filter_by(email=email).first()
-            if email_exists:
-                flash('Email is already in use',category='error')
-            elif password != password2:
-                flash('Password don\'t match!', category='error')
-            elif len(password) < 6:
-                flash('Password is too short.', category='error')
-            elif len(email) < 4:
-                flash("Email is invalid.", category='error')
-            else:
-                new_user = User(firstname=firstname,lastname=lastname,email=email,birthday=birthday,password=generate_password_hash(
-                password, method='sha256'))
-                db.session.add(new_user)
-                db.session.commit()
-                login_user(new_user,remember=True)
-                flash('User created',category='success')
-                return redirect(url_for('auth.login'))
+            # email_exists = User.query.filter_by(email=email).first()
+            # if email_exists:
+            #     flash('Email is already in use',category='error')
+            # elif password != password2:
+            #     flash('Password don\'t match!', category='error')
+            # elif len(password) < 6:
+            #     flash('Password is too short.', category='error')
+            # elif len(email) < 4:
+            #     flash("Email is invalid.", category='error')
+            # else:
+            #     new_user = User(firstname=firstname,lastname=lastname,email=email,birthday=birthday,password=generate_password_hash(
+            #     password, method='sha256'))
+            #     db.session.add(new_user)
+            #     db.session.commit()
+            #     login_user(new_user,remember=True)
+            #     flash('User created',category='success')
+            #     return redirect(url_for('auth.login'))
             
 
 
