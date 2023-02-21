@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %} Category {% endblock %}
+
+{% block content %}
+<main id="main">
+    <section>
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-9" data-aos="fade-up">
+            <h3 class="category-title">Category: Business</h3>
+            {% for news in result %}
+
+            <div class="d-md-flex post-entry-2 half">
+              <div>
+                <div class="post-meta"><span class="date"></span> <span class="mx-1">&bullet;</span> <span>{{news.new_date}}</span></div>
+                <h3><a href="{{ url_for('views.article_detail', news_id=news.id) }}">{{news.title}}</a></h3>
+                
+                <div class="d-flex align-items-center author">
+                
+                  <div class="name">
+                    <h3 class="m-0 p-0">{{news.author}}</h3>
+                  </div>
+                </div>
+                
+              </div>
+            
+            </div>
+           {% endfor %}
+
+          </div>
+          
+        </div>
+      </div>
+    </section>
+</main><!-- End #main -->
+
+
+{% endblock %}

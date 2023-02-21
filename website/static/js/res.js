@@ -1,4 +1,22 @@
+$(document).ready(function() {
+    var dialogShown = $.cookie('dialogShown');
 
+    // On newer versions of js-cookie, API use:
+    // var dialogShown = Cookies.get('dialogShown');
+
+    if (!dialogShown) {
+        $(window).load(function(){
+            $( "#MyModel" ).dialog();
+            $.cookie('dialogShown', 1);
+            // On newer versions of js-cookie, API use:
+            // Cookies.set('dialogShown', 1);
+
+        });
+    }
+    else {
+        $("#MyModel").hide();
+    }
+});
 
 // $(function(){
     
